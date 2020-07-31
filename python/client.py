@@ -27,4 +27,4 @@ if __name__ == '__main__':
     parser.add_argument('--sec', type=int, dest='seconds', default=60,
                         help='How long you want to make requests')
     args = parser.parse_args()
-    main(url, num, seconds)
+    main(args.url, args.num, args.seconds)
