@@ -2,6 +2,7 @@ import argparse
 import logging
 import requests
 import sys
+import time
 
 
 handler = logging.StreamHandler(stream=sys.stdout)
@@ -11,13 +12,18 @@ logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 def main(url, num, seconds):
     logging.info(f'Contacting URL {url} for time.')
     for i in range(seconds):
+        start_time =  time.time()
         try:
             resp = requests.get(url)
+            ttlb = time.time() - start_time
             if resp.status_code == 200:
                 logging.info(f'Request returned successfully with {resp.status_code} and the message {resp.json()}')
+                logging.info(f'Time to Last Byte is {ttlb}')
             else:
                 logging.error(f'Request failed with {resp.status_code}')
         except requests.exceptions.ConnectionError as err:
+            ttlb = time.time() - start_time
+            logging.info(f'Time to Last Byte is {ttlb}')
             logging.error('Failed to connect to server', exc_info=err)
 
 
