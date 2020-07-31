@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 def main(url, num, seconds):
     logging.info(f'Contacting URL {url} for time.')
-    resp = requests.get('/')
+    resp = requests.get(url)
     logging.info(f'{resp}')
 
 
