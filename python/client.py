@@ -11,7 +11,10 @@ logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 def main(url, num, seconds):
     logging.info(f'Contacting URL {url} for time.')
     resp = requests.get(url)
-    logging.info(f'{resp}')
+    if resp.status_code == 200:
+        logging.info(f'Request returned successfully with {resp.status_code} and the message {resp.json()}')
+    else:
+        logging.error(f'Request failed with {resp.status_code}')
 
 
 
