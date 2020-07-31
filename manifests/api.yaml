@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-deployment
+  template:
+    metadata:
+      labels:
+        app: api-deployment
+    spec:
+      containers:
+      - name: frontend-api
+        image: pwalters1122/simple-flask-api:v1
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
