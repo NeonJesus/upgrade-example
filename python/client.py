@@ -10,11 +10,15 @@ logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 def main(url, num, seconds):
     logging.info(f'Contacting URL {url} for time.')
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        logging.info(f'Request returned successfully with {resp.status_code} and the message {resp.json()}')
-    else:
-        logging.error(f'Request failed with {resp.status_code}')
+    try:
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            logging.info(f'Request returned successfully with {resp.status_code} and the message {resp.json()}')
+        else:
+            logging.error(f'Request failed with {resp.status_code}')
+    except requests.exceptions.ConnectionError as err:
+        logging.error('Failed to connect to server', exc_info=err)
+
 
 
 
