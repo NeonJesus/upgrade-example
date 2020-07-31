@@ -10,9 +10,10 @@ logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 def timestamp():
     logging.info('Request for Time received')
-    time = {'date': datetime.now()}
-    logging.info(f'Returning the time: {time}')
-    return json.dumps(time)
+    time = datetime.now()
+    message = {'date': time.isoformat()}
+    logging.info(f'Returning the time: {message}')
+    return json.dumps(message)
 
 
 if __name__ == '__main__':
