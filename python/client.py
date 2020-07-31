@@ -1,13 +1,18 @@
 import argparse
 import logging
+import requests
+import sys
 
 
 handler = logging.StreamHandler(stream=sys.stdout)
 logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 
-main():
-    logging.info('TODO')
+def main(url, num, seconds):
+    logging.info(f'Contacting URL {url} for time.')
+    resp = requests.get('/')
+    logging.info(f'{resp}')
+
 
 
 if __name__ == '__main__':
@@ -15,9 +20,11 @@ if __name__ == '__main__':
                                                     Tiemstamp a user
                                                     specified number
                                                     of times per second''')
-    parser.add_argument('--num',
-                        type=int,
-                        dest='num',
+    parser.add_argument('--url', type=str, dest='url', required=True,
+                        help='URL to make request to.')
+    parser.add_argument('--num', type=int, dest='num', default=1,
                         help='Number of Requests to make.')
+    parser.add_argument('--sec', type=int, dest='seconds', default=60,
+                        help='How long you want to make requests')
     args = parser.parse_args()
-    main()
+    main(url, num, seconds)
